@@ -3,6 +3,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
+const speedRoutes = require('./routes/speeds');
+
 // load environment variables from .env file
 dotenv.config();
 
@@ -23,7 +25,7 @@ mongoose.connect(uri, {
 app.use(cors());
 app.use(express.json());
 
-const connection = mongoose.connection;
+app.use('/speeds', speedRoutes);
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
