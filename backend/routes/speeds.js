@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const Joi = require('joi');
 
 const Speed = require('../models/speed.model');
 
