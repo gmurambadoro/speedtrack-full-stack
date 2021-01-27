@@ -5,9 +5,12 @@ import Layout from "./Layout";
 import {getLocaleDate} from "../services/helpers";
 
 const App = () => {
+    // apply the date at the top-level so that components have less// data to process
+    const [date] = useState(new Date().getDate());
+
+    // internet speed for the specified date above
     const [speeds, setSpeeds] = useState([]);
-    const [date] = useState(new Date().getDate()); // apply the date at the top-level so that components have less
-    // data to process
+
 
     useEffect(() => {
         const refreshData = () => {
