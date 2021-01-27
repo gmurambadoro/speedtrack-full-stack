@@ -28,7 +28,7 @@ const PingChart = (props) => {
         datasets: [
             {
                 label: 'Ping (ms)',
-                data: speeds.map(speed => getMegaBytes(parseFloat(speed.ping))),
+                data: speeds.map(speed => parseFloat(speed.ping)),
                 fill: false,
                 backgroundColor: 'green',
                 borderColor: 'green',
