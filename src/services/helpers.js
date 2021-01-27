@@ -1,10 +1,10 @@
+import * as prettyBytes from "pretty-bytes";
+
 /**
  * Converts a time string to a locale date
  * @param timestamp {string}
  * @returns {Date}
  */
-import * as prettyBytes from "pretty-bytes";
-
 export const getLocaleDate = (timestamp) => {
     return new Date(Date.parse(new Date(timestamp).toLocaleString("en-ZA")));
 };
