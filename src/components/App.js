@@ -6,16 +6,16 @@ import {getLocaleDate} from "../services/helpers";
 
 const App = () => {
     // apply the date at the top-level so that components have less// data to process
-    const [date] = useState(new Date().getDate());
+    const [date] = useState(new Date());
 
     // internet speed for the specified date above
     const [speeds, setSpeeds] = useState([]);
 
-
     useEffect(() => {
         const refreshData = () => {
             findSpeeds().then(speeds => {
-                const filtered = speeds.filter(speed => getLocaleDate(speed.timestamp).getDate() === date);
+                const filtered = speeds
+                    .filter(speed => getLocaleDate(speed.timestamp).toLocaleDateString() === date.toLocaleDateString());
 
                 setSpeeds([...filtered]);
 
@@ -30,7 +30,7 @@ const App = () => {
         return () => clearInterval(timer); // clear the timer when component unmounts
     }, [date]); // this effect should only run once or when the date is changed
 
-    return <Layout speeds={speeds} />;
+    return <Layout date={date} speeds={speeds} />;
 };
 
 export default App;

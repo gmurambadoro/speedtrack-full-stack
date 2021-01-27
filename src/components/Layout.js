@@ -2,11 +2,13 @@ import React from "react";
 import Status from "./Status";
 import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
 import {Container, Nav, Navbar} from "react-bootstrap";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCalendarAlt} from "@fortawesome/free-solid-svg-icons";
 import {APP_NAME} from "../config";
 import Dashboard from "./Dashboard";
 
 const Layout = (props) => {
-    const { speeds = [] } = props;
+    const { speeds = [], date = new Date() } = props;
 
     const [latestSpeed = {timestamp: null}] = speeds;
 
@@ -20,6 +22,12 @@ const Layout = (props) => {
                         <Nav className="mr-auto">
                             {/*<Nav.Link as={Link} to="/"><FontAwesomeIcon icon={faHome} /> Home</Nav.Link>*/}
                             {/*<Nav.Link as={Link} to="/about">About</Nav.Link>*/}
+                        </Nav>
+
+                        <Nav className="mr-2">
+                            <Nav.Item>
+                                <FontAwesomeIcon icon={faCalendarAlt} /> {date.toLocaleDateString()}
+                            </Nav.Item>
                         </Nav>
 
                         <Status timestamp={latestSpeed.timestamp} />

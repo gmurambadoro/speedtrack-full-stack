@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import {Col, Row} from "react-bootstrap";
 import ServiceProviders from "./ServiceProviders";
-import InternetSpeed from "./InternetSpeed";
+import InternetSpeedChart from "./InternetSpeedChart";
 import TotalBandwidth from "./TotalBandwidth";
+import PingChart from "./PingChart";
 
 const Dashboard = (props) => {
     const [isp, setIsp] = useState('all');
@@ -19,16 +20,20 @@ const Dashboard = (props) => {
         return isp.toLowerCase() === String(speed.client.isp).toString().toLowerCase();
     };
 
+    const filterSpeedByIsp = () => speeds.filter(ispFilter);
+
     return (
         <Row>
             <Col md={9}>
-                <InternetSpeed isp={isp} speeds={speeds.filter(ispFilter)} />
+                <InternetSpeedChart isp={isp} speeds={filterSpeedByIsp()} />
+
+                <PingChart isp={isp} speeds={filterSpeedByIsp()} />
             </Col>
 
             <Col md={3}>
                 <div className={"mt-3"}>
                     <div className="mb-2">
-                        <TotalBandwidth speeds={speeds.filter(ispFilter)} />
+                        <TotalBandwidth speeds={filterSpeedByIsp()} />
                     </div>
 
                     <ServiceProviders

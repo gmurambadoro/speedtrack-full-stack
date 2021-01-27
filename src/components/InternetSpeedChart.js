@@ -2,7 +2,7 @@ import React from "react";
 import {getLocaleDate, getMegaBytes} from "../services/helpers";
 import {Line} from "react-chartjs-2";
 
-const InternetSpeed = (props) => {
+const InternetSpeedChart = (props) => {
     const { speeds, isp } = props;
 
     const chartData = {
@@ -25,7 +25,7 @@ const InternetSpeed = (props) => {
         ],
     }
 
-    let chartTitle = `Internet Speed (${new Date().toDateString()})`;
+    let chartTitle = `Internet Speed`;
 
     if (isp.toLowerCase() === 'all') {
         chartTitle += " - All Networks".toUpperCase();
@@ -53,11 +53,11 @@ const InternetSpeed = (props) => {
 
     return (
         <React.Fragment>
-            <h3 className="mt-3">Internet Speeds</h3>
+            <h4 className="mt-3">Speed</h4>
 
             <Line data={chartData} options={chartOptions} />
         </React.Fragment>
     );
 };
 
-export default InternetSpeed;
+export default InternetSpeedChart;
