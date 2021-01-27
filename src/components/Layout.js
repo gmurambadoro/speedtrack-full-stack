@@ -3,8 +3,6 @@ import Status from "./Status";
 import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
 import {Container, Nav, Navbar} from "react-bootstrap";
 import DatePicker from "react-datepicker";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCalendarAlt} from "@fortawesome/free-solid-svg-icons";
 import "react-datepicker/dist/react-datepicker.css";
 import {APP_NAME} from "../config";
 import Dashboard from "./Dashboard";
