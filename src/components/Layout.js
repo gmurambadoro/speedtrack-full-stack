@@ -2,13 +2,15 @@ import React from "react";
 import Status from "./Status";
 import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
 import {Container, Nav, Navbar} from "react-bootstrap";
+import DatePicker from "react-datepicker";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCalendarAlt} from "@fortawesome/free-solid-svg-icons";
+import "react-datepicker/dist/react-datepicker.css";
 import {APP_NAME} from "../config";
 import Dashboard from "./Dashboard";
 
 const Layout = (props) => {
-    const { speeds = [], date = new Date() } = props;
+    const { speeds = [], date = new Date(), onDateChanged } = props;
 
     const [latestSpeed = {timestamp: null}] = speeds;
 
@@ -26,7 +28,7 @@ const Layout = (props) => {
 
                         <Nav className="mr-2">
                             <Nav.Item>
-                                <FontAwesomeIcon icon={faCalendarAlt} /> {date.toLocaleDateString()}
+                                <DatePicker className="form-control" selected={date} onChange={(d) => onDateChanged(d)} />
                             </Nav.Item>
                         </Nav>
 

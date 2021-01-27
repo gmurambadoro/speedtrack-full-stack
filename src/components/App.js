@@ -6,7 +6,7 @@ import {getLocaleDate} from "../services/helpers";
 
 const App = () => {
     // apply the date at the top-level so that components have less// data to process
-    const [date] = useState(new Date());
+    const [date, setDate] = useState(new Date());
 
     // internet speed for the specified date above
     const [speeds, setSpeeds] = useState([]);
@@ -30,7 +30,7 @@ const App = () => {
         return () => clearInterval(timer); // clear the timer when component unmounts
     }, [date]); // this effect should only run once or when the date is changed
 
-    return <Layout date={date} speeds={speeds} />;
+    return <Layout date={date} speeds={speeds} onDateChanged={(d) => setDate(d)} />;
 };
 
 export default App;
