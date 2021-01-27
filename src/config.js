@@ -1,4 +1,10 @@
 /**
+ * The name of the application
+ * @type {string}
+ */
+export const APP_NAME = 'SpeedTrack - Client';
+
+/**
  * The time (in seconds) before new data has to be fetched from the server
  * @type {number}
  */
