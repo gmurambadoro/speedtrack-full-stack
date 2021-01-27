@@ -8,26 +8,26 @@ const Dashboard = (props) => {
 
     const { speeds = [] } = props;
     
-    const serviceProviders = speeds.filter(speed => speed.client && speed.client.isp).map(speed => speed.client.isp);
+    const serviceProviders = [...(new Set(speeds.filter(speed => speed.client && speed.client.isp).map(speed => speed.client.isp)))];
 
-    const filterSpeedByProvider = () => speeds.filter(speed => {
+    const ispFilter = (speed) => {
         if (isp.toLowerCase() === 'all') {
             return true;
         }
 
         return isp.toLowerCase() === String(speed.client.isp).toString().toLowerCase();
-    });
+    };
 
     return (
         <Row>
             <Col md={10}>
-                <InternetSpeed isp={isp} speeds={filterSpeedByProvider()} />
+                <InternetSpeed isp={isp} speeds={speeds.filter(ispFilter)} />
             </Col>
 
             <Col md={2}>
                 <div className={"mt-3"}>
                     <ServiceProviders
-                        providers={[...(new Set(serviceProviders))]}
+                        providers={serviceProviders}
                         isp={isp}
                         handleChange={(provider) => setIsp(provider)}
                     />

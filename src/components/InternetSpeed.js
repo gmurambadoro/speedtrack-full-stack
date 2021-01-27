@@ -53,7 +53,7 @@ const InternetSpeed = (props) => {
 
     return (
         <React.Fragment>
-            <h3 className="mt-3">Internet Speed</h3>
+            <h3 className="mt-3">Internet Speeds</h3>
 
             <Line data={chartData} options={chartOptions} />
         </React.Fragment>
