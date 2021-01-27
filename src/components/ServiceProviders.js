@@ -13,6 +13,7 @@ const ServiceProviders = (props) => {
     const renderProvider = (provider) => {
         return (
             <ListGroup.Item
+                key={provider}
                 onClick={() => handleChange(provider)}
                 style={styles.groupItem}
             >
@@ -22,7 +23,7 @@ const ServiceProviders = (props) => {
     };
 
     return (
-        <Card style={{ width: '16rem' }}>
+        <Card>
             <Card.Header>Internet Service Provider (ISP)</Card.Header>
             <ListGroup variant="flush">
                 <ListGroup.Item

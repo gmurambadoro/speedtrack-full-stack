@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Col, Row} from "react-bootstrap";
 import ServiceProviders from "./ServiceProviders";
 import InternetSpeed from "./InternetSpeed";
+import TotalBandwidth from "./TotalBandwidth";
 
 const Dashboard = (props) => {
     const [isp, setIsp] = useState('all');
@@ -20,12 +21,16 @@ const Dashboard = (props) => {
 
     return (
         <Row>
-            <Col md={10}>
+            <Col md={9}>
                 <InternetSpeed isp={isp} speeds={speeds.filter(ispFilter)} />
             </Col>
 
-            <Col md={2}>
+            <Col md={3}>
                 <div className={"mt-3"}>
+                    <div className="mb-2">
+                        <TotalBandwidth speeds={speeds.filter(ispFilter)} />
+                    </div>
+
                     <ServiceProviders
                         providers={serviceProviders}
                         isp={isp}
