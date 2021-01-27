@@ -1,5 +1,5 @@
 import React from "react";
-import {getLocaleDate, getMegaBytes} from "../services/helpers";
+import {getLocaleDate} from "../services/helpers";
 import {Line} from "react-chartjs-2";
 
 const PingChart = (props) => {
@@ -8,7 +8,7 @@ const PingChart = (props) => {
     const chartOptions = {
         title: {
             display: true,
-            text: `Latency - ${isp.toUpperCase()} ISP(s)`,
+            text: `Latency - ${isp.toLowerCase() === 'all' ? 'ALL NETWORKS' : isp.toUpperCase()}`,
         },
         scales: {
             yAxes: [
