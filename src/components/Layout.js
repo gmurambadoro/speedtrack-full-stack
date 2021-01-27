@@ -2,13 +2,11 @@ import React from "react";
 import Status from "./Status";
 import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
 import {Container, Nav, Navbar} from "react-bootstrap";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHome} from "@fortawesome/free-solid-svg-icons";
 import {APP_NAME} from "../config";
 import Dashboard from "./Dashboard";
 
 const Layout = (props) => {
-    const { speedData: speeds = [] } = props;
+    const { speeds = [] } = props;
 
     const [latestSpeed = {timestamp: null}] = speeds;
 
