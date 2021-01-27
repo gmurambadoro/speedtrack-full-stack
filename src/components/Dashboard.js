@@ -4,6 +4,7 @@ import ServiceProviders from "./ServiceProviders";
 import InternetSpeedChart from "./InternetSpeedChart";
 import TotalBandwidth from "./TotalBandwidth";
 import PingChart from "./PingChart";
+import Sponsors from "./Sponsers";
 
 const Dashboard = (props) => {
     const [isp, setIsp] = useState('all');
@@ -20,20 +21,20 @@ const Dashboard = (props) => {
         return isp.toLowerCase() === String(speed.client.isp).toString().toLowerCase();
     };
 
-    const filterSpeedByIsp = () => speeds.filter(ispFilter);
+    const getSpeedFilteredByISP = () => speeds.filter(ispFilter);
 
     return (
         <Row>
             <Col md={9}>
-                <InternetSpeedChart isp={isp} speeds={filterSpeedByIsp()} />
+                <InternetSpeedChart isp={isp} speeds={getSpeedFilteredByISP()} />
 
-                <PingChart isp={isp} speeds={filterSpeedByIsp()} />
+                <PingChart isp={isp} speeds={getSpeedFilteredByISP()} />
             </Col>
 
             <Col md={3}>
                 <div className={"mt-3"}>
                     <div className="mb-2">
-                        <TotalBandwidth speeds={filterSpeedByIsp()} />
+                        <TotalBandwidth speeds={getSpeedFilteredByISP()} />
                     </div>
 
                     <ServiceProviders
@@ -41,6 +42,10 @@ const Dashboard = (props) => {
                         isp={isp}
                         handleChange={(provider) => setIsp(provider)}
                     />
+
+                    <div className="mt-2">
+                        <Sponsors sponsors={[...(new Set(getSpeedFilteredByISP().map(speed => speed.server.sponsor)))]} />
+                    </div>
                 </div>
             </Col>
         </Row>
