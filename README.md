@@ -31,3 +31,75 @@ installed and running.
 1. When successfully completed, your two apps will be located in the `/var/www/` folder
 
 ## Setting Up Virtual Host Configurations 
+
+You can use [lampset-vhost-add](https://github.com/gmurambadoro/lampset-vhost-add) to register host names for the
+frontend and frontend apps if you have not already done that before.
+
+Simply type in `lampset-vhost-add --interactive` for each application, and you will be guided in the setup process. 
+Because the applications are JavaScript-based, you can disable *php-fpm* because it is not required.
+
+![Adding a VirtualHost](./v-host-add.png)
+
+## Setting PM2 for the Backend
+
+The backend is run as a `nodejs` application running on at the following endpoint `http://localhost:5000`. 
+We need to configure `apache2` so that it is able to *proxy* all traffic coming to the backend host
+`http://backend.example.com` configured via `BACKEND_URL` in the installation procedure above.
+
+The following is a once-off process and does not have to be repeated for each build.
+
+```bash
+
+sudo en2mod proxy
+sudo a2enmod proxy_http
+sudo systemctl restart apache2
+
+```
+
+Now modify the file `/etc/apache/sites-available/backend.example.com.conf` to enable the proxy service.
+Restart `apache2` when done - `sudo systemctl restart apache2`.
+
+```
+<VirtualHost *:80>
+    ServerName backend.example.com
+
+    ProxyRequests on
+    ProxyPreserveHost On
+    ProxyPass / http://localhost:3000/
+    ProxyVia Full
+    <Proxy *>
+      Require all granted
+    </Proxy>
+
+    <Location />
+      ProxyPass http://127.0.0.1:5000/
+      ProxyPassReverse http://127.0.0.1:5000/
+    </Location>
+
+    DocumentRoot /var/www/backend.example.com
+    <Directory /var/www/backend.example.com>
+        AllowOverride All
+        Order Allow,Deny
+        Allow from All
+    </Directory>
+    
+    
+
+    ErrorLog /var/log/apache2/backend.example.com_error.log
+    CustomLog /var/log/apache2/backend.example.com_access.log combined
+</VirtualHost>
+gmurambadoro@OptiPlex-790:~$ 
+```
+
+At this point all traffic that comes to `http://backend.example.com` will be automatically routed to the `nodejs` 
+service at `http://localhost:5000`.
+
+## PM2 - Keeping the NodeJS Service Alive
+
+## References
+
+1. [Run NodeJS with PM2 and Apache 2.4 on Ubuntu 18.04](https://www.serverlab.ca/tutorials/development/nodejs/run-nodejs-with-pm2-and-apache-2-4-on-ubuntu-18-04/)
+1. [How to get Apache and Node working together on the same domain with Proxied Javascript AJAX requests](https://blog.cloudboost.io/get-apache-and-node-working-together-on-the-same-domain-with-javascript-ajax-requests-39db51959b79)
+1. [Linux, Apache, PHP & MySQL Setup (lampset)](https://github.com/gmurambadoro/lampset)
+1. [LAMPSET Virtual Host Manager](https://github.com/gmurambadoro/lampset-vhost-add)
+
