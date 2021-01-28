@@ -13,7 +13,7 @@ router.route('/').get((req, res) => {
         page,
         limit: 10,
         sort: {
-            timestamp: -1,
+            timestamp: 1, // order by timestamp asc
         }
     };
 

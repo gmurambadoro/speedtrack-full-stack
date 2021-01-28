@@ -13,14 +13,16 @@ const App = () => {
 
     useEffect(() => {
         const refreshData = () => {
-            findSpeeds().then(speeds => {
-                const filtered = speeds
-                    .filter(speed => getLocaleDate(speed.timestamp).toLocaleDateString() === date.toLocaleDateString());
+            findSpeeds(date)
+                .then(speeds => {
+                    const filtered = speeds
+                        .filter(speed => getLocaleDate(speed.timestamp).toLocaleDateString() === date.toLocaleDateString());
 
-                setSpeeds([...filtered]);
+                    setSpeeds([...filtered]);
 
-                console.log('DATA REFRESHED @ ' + new Date());
-            });
+                    console.log('DATA REFRESHED @ ' + new Date());
+                })
+            ;
         };
 
         const timer = setInterval(refreshData, REFRESH_INTERVAL_MILLISECONDS);
