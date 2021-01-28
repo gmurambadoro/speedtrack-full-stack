@@ -42,9 +42,9 @@ Because the applications are JavaScript-based, you can disable *php-fpm* because
 
 ## Setting PM2 for the Backend
 
-The backend is run as a `nodejs` application running on at the following endpoint `http://localhost:5000`. 
+The backend is run as a `nodejs` application that runs at the `http://localhost:5000` endpoint. 
 We need to configure `apache2` so that it is able to *proxy* all traffic coming to the backend host
-`http://backend.example.com` configured via `BACKEND_URL` in the installation procedure above.
+`http://backend.example.com` configured via `BACKEND_URL` in the installation procedure above to `http://localhost:5000`.
 
 The following is a once-off process and does not have to be repeated for each build.
 
@@ -57,7 +57,7 @@ sudo systemctl restart apache2
 ```
 
 Now modify the file `/etc/apache/sites-available/backend.example.com.conf` to enable the proxy service.
-Restart `apache2` when done - `sudo systemctl restart apache2`.
+Restart `apache2` when done using `sudo systemctl restart apache2`.
 
 ```
 <VirtualHost *:80>
@@ -92,7 +92,7 @@ gmurambadoro@OptiPlex-790:~$
 ```
 
 At this point all traffic that comes to `http://backend.example.com` will be automatically routed to the `nodejs` 
-service at `http://localhost:5000`.
+service at running `http://localhost:5000`.
 
 ## PM2 - Keeping the NodeJS Service Alive
 
