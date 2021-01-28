@@ -1,4 +1,4 @@
-# SpeedTrack &trade; Backend Service
+# SpeedTrack &trade; Bandwidth Speed Monitor
 
 This application is a backend service that provides an API endpoint to be used by 
 the React client to fetch speed data.
