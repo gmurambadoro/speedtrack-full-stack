@@ -52,6 +52,8 @@ The following is a once-off process and does not have to be repeated for each bu
 
 sudo en2mod proxy
 sudo a2enmod proxy_http
+sudo a2enmod proxy_balancer 
+sudo a2enmod lbmethod_byrequests
 sudo systemctl restart apache2
 
 ```
@@ -95,6 +97,39 @@ At this point all traffic that comes to `http://backend.example.com` will be aut
 service at running `http://localhost:5000`.
 
 ## PM2 - Keeping the NodeJS Service Alive
+
+The `backend` is a `nodejs` process of the following file `/var/www/backend.example.com/server.js`. 
+This service can be started via the command `node /var/www/backend.example.com/server.js`.
+
+However, this alone is not enough and we need some kind of process manager to ensures that the service is always available.
+
+This is where we need [pm2](https://pm2.keymetrics.io/). Based on their website:
+
+*"PM2 is a daemon process manager that will help you manage and keep your application online 24/7"*
+
+1. Ensure that `pm2` is installed by running the following command as `sudo`.
+
+   `sudo npm install pm2 -g`
+
+1. Activate `pm2` service so that it is able to run as a service and automatically start on system boot.
+   
+   `sudo pm2 enable`
+
+1. Add the `server.js` service to the `pm2`'s watchlist.
+
+   ```bash
+   sudo pm2 start /var/www/backend.example.com/server.js --name=speedtrack-backend
+   sudo pm2 list
+   ```
+
+   ![Process Status](./pm2.png)
+
+1. The `server.js` process is now being monitored by `pm2` and will be restarted automatically if it terminates and 
+   at boot time. You can check the status of this process via `sudo pm2 status`.
+
+1. Additional commands for `pm2` can be obtained via `pm2 --help`.
+
+**NB:** After every build, ensure that you restart the server process via `sudo pm2 restart speedtrack-backend`.
 
 ## References
 
