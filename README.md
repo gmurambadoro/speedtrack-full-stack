@@ -90,7 +90,6 @@ Restart `apache2` when done using `sudo systemctl restart apache2`.
     ErrorLog /var/log/apache2/backend.example.com_error.log
     CustomLog /var/log/apache2/backend.example.com_access.log combined
 </VirtualHost>
-gmurambadoro@OptiPlex-790:~$ 
 ```
 
 At this point all traffic that comes to `http://backend.example.com` will be automatically routed to the `nodejs` 
