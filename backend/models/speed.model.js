@@ -20,7 +20,7 @@ const speedSchema = new Schema({
         d: Number,
         latency: Number,
     },
-    timestamp: Date,
+    timestamp: String,
     bytes_sent: Number,
     bytes_received: Number,
     share: String,
