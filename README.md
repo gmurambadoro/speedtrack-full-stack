@@ -21,8 +21,13 @@ installed and running.
     - `git clone https://github.com/gmurambadoro/speedtrack-full-stack.git`
 1. Run the `install.sh` script in the `speedtrack-full-stack` folder.
     - `bash install.sh`
-1. The installer script will ask you for these environment variables: `FRONTEND_DIR`, `BACKEND_DIR` and `BACKEND_URL`.
-   Provide values for these to make your host names.
+1. The installer script will ask you for the following environment variables:
+   
+   - `FRONTEND_DIR` - the directory name relative to `/var/www/` that will hold the frontend files e.g. `frontend.example.com`
+   - `BACKEND_DIR` - the directory name relative to `/var/www/` that will hold the backend files e.g. `backend.example.com`
+   - `BACKEND_URL` - the hostname for the backend speed API. This is required by the frontend when connecting to the backend
+   API service e.g. `http://backend.example.com`.
+     
 1. When successfully completed, your two apps will be located in the `/var/www/` folder
 
 ## Setting Up Virtual Host Configurations 
