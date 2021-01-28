@@ -9,8 +9,11 @@ import Dashboard from "./Dashboard";
 
 const Layout = (props) => {
     const { speeds = [], date = new Date(), onDateChanged } = props;
+    const current = { timestamp: null };
 
-    const [latestSpeed = {timestamp: null}] = speeds;
+    if (speeds.length > 0) {
+        current.timestamp = speeds[speeds.length - 1].timestamp; // records are sorted by timestamp asc
+    }
 
     return (
         <BrowserRouter>
@@ -30,7 +33,7 @@ const Layout = (props) => {
                             </Nav.Item>
                         </Nav>
 
-                        <Status timestamp={latestSpeed.timestamp} />
+                        <Status timestamp={current.timestamp} />
                     </Navbar.Collapse>
                 </Navbar>
             </header>
