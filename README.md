@@ -9,8 +9,9 @@ installed and running.
 
 ## Server Setup
 
-1. Configure your web server using [lampset](https://github.com/gmurambadoro/lampset).
-    - You may also install [lampset-vhost-add](https://github.com/gmurambadoro/lampset-vhost-add) to be able to easily add virtual hosts on your server.
+1. Configure your web server using [lampset](https://github.com/gmurambadoro/lampset). You may also need to 
+   install [lampset-vhost-add](https://github.com/gmurambadoro/lampset-vhost-add) to be able to easily add 
+   virtual hosts on your server.
 1. [Download](https://nodejs.org/en/download/) and install [NodeJs](https://nodejs.org/en/) - preferably install the most recent stable version.
 1. Download and install [PM2](https://pm2.keymetrics.io/). PM2 is a process manager and it is responsible for ensuring that your node applications are always online.
 
