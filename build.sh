@@ -2,8 +2,21 @@
 
 # path to the web directory
 # NB: there is no trailing slash (/)
-OUTPUT_DIR=/var/tmp/speedtrack-build-out
-WORK_DIR=/var/tmp/speedtrack-build
+OUTPUT_DIR=/var/tmp/builds/speedtrack/out
+WORK_DIR=/var/tmp/builds/speedtrack/in
+
+echo "=== SpeedTrack Build Tool v1.0.0 ==="
+echo
+echo "USAGE: Replace the placeholders with values for your application"
+echo
+echo "export BACKEND_DIR=<<dir_name>>"
+echo "export FRONTEND_DIR=<<dir_name>>"
+echo "export BACKEND_URL=<<http://backend.example.com>>"
+echo
+echo bash build.sh
+echo
+echo "++--++-+--++--+-+--++--++-+--"
+echo
 
 # check if the required environment variables have been set
 if [ -z "$FRONTEND_DIR" ];
@@ -34,8 +47,8 @@ then
 fi
 
 # create installation folders
-mkdir $OUTPUT_DIR
-mkdir $WORK_DIR
+mkdir -p $OUTPUT_DIR
+mkdir -p $WORK_DIR
 cd $OUTPUT_DIR || exit 1
 
 echo
@@ -94,11 +107,15 @@ cd ../
 rsync -avzhr backend/ "${OUTPUT_DIR}/${BACKEND_DIR}/" || exit 1
 
 echo
+echo "!!- OUTPUT DIRECTORIES -!!"
+echo
+echo Frontend: "${OUTPUT_DIR}/${FRONTEND_DIR}"
+echo
+echo Backend: "${OUTPUT_DIR}/${BACKEND_DIR}"
+
+echo
 echo [OK] Build Successful.
 echo
 
-echo "!!- Move the contents of the following folders to their respective web folder locations -!!"
-echo Frontend Path: "${OUTPUT_DIR}/${FRONTEND_DIR}"
-echo Backend Path: "${OUTPUT_DIR}/${BACKEND_DIR}"
 
 exit 0
