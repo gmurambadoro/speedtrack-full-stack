@@ -2,7 +2,7 @@ import React from "react";
 import {Card, ListGroup} from "react-bootstrap";
 
 const ServiceProviders = (props) => {
-    const { providers, isp, handleChange } = props;
+    const { providers = [], isp, handleChange } = props;
 
     const styles = {
         groupItem: {

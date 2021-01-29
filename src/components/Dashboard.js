@@ -39,7 +39,7 @@ const Dashboard = (props) => {
 
                     <ServiceProviders
                         providers={serviceProviders}
-                        isp={serviceProviders.length === 1 ? serviceProviders[1] : isp}
+                        isp={serviceProviders.length === 1 ? serviceProviders[0] : isp}
                         handleChange={(provider) => setIsp(provider)}
                     />
 
