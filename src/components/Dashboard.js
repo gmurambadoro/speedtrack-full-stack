@@ -5,6 +5,7 @@ import InternetSpeedChart from "./InternetSpeedChart";
 import TotalBandwidth from "./TotalBandwidth";
 import PingChart from "./PingChart";
 import Sponsors from "./Sponsers";
+import Github from "./Github";
 
 const Dashboard = (props) => {
     const [isp, setIsp] = useState('all');
@@ -45,6 +46,10 @@ const Dashboard = (props) => {
 
                     <div className="mt-2">
                         <Sponsors sponsors={[...(new Set(getSpeedFilteredByISP().map(speed => speed.server.sponsor)))]} />
+                    </div>
+
+                    <div className="mt-2 mb-2">
+                        <Github />
                     </div>
                 </div>
             </Col>
