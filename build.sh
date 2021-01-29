@@ -2,7 +2,8 @@
 
 # path to the web directory
 # NB: there is no trailing slash (/)
-WEB_DIR=/var/www
+OUTPUT_DIR=/var/tmp/speedtrack-build-out
+WORK_DIR=/var/tmp/speedtrack-build
 
 # check if the required environment variables have been set
 if [ -z "$FRONTEND_DIR" ];
@@ -32,22 +33,34 @@ then
   exit 1
 fi
 
-# navigate into webroot and create installation folders
-cd $WEB_DIR || exit 1
+# create installation folders
+mkdir $OUTPUT_DIR
+mkdir $WORK_DIR
+cd $OUTPUT_DIR || exit 1
 
-# attempt to create the target directors and silently fail if they already exist
-sudo mkdir "$FRONTEND_DIR" "$BACKEND_DIR"
+echo
+echo "!!==== PREPARING TO BUILD YOUR APPLICATION ===!!"
+echo
+echo "BACKEND_URL: ${BACKEND_URL}"
+echo "BACKEND_DIR: ${BACKEND_DIR}"
+echo "FRONTEND_DIR: ${FRONTEND_DIR}"
+echo
+echo "OUTPUT_DIR: ${OUTPUT_DIR}"
+echo "WORK_DIR: ${WORK_DIR}"
+echo
+
+# attempt to remove existing target directories
+rm -rf "$FRONTEND_DIR" "$BACKEND_DIR"
+
+# create target directories
+mkdir "$FRONTEND_DIR" "$BACKEND_DIR" || exit 1
 
 # check that the required directories exist and we can access their contents
 ls -ah "$FRONTEND_DIR" || exit 1
 ls -ah "$BACKEND_DIR" || exit 1
 
-# set proper permissions recursively for apache user
-sudo chown -R www-data:www-data "$FRONTEND_DIR" "$BACKEND_DIR"
-sudo chown -R www-data:www-data "$FRONTEND_DIR" "$BACKEND_DIR"
-
 # the tmp directory will be the working folder
-cd /var/tmp/ || exit 1
+cd $WORK_DIR || exit 1
 
 # delete the working folder if it already exists
 rm -rf speedtrack-full-stack
@@ -68,7 +81,7 @@ echo
 
 npm install
 npm run build
-sudo rsync -avzhr build/ "${WEB_DIR}/${FRONTEND_DIR}/" || exit 1
+rsync -avzhr build/ "${OUTPUT_DIR}/${FRONTEND_DIR}/" || exit 1
 
 cd backend || exit 1
 
@@ -78,10 +91,14 @@ echo "!!=== BUILDING THE BACKEND ===!!"
 echo
 npm install
 cd ../
-sudo rsync -avzhr backend/ "${WEB_DIR}/${BACKEND_DIR}/" || exit 1
+rsync -avzhr backend/ "${OUTPUT_DIR}/${BACKEND_DIR}/" || exit 1
 
 echo
 echo [OK] Build Successful.
 echo
+
+echo "!!- Move the contents of the following folders to their respective web folder locations -!!"
+echo Frontend Path: "${OUTPUT_DIR}/${FRONTEND_DIR}"
+echo Backend Path: "${OUTPUT_DIR}/${BACKEND_DIR}"
 
 exit 0
