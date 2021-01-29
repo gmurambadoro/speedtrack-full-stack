@@ -4,10 +4,10 @@ const moment = require('moment');
 const Speed = require('../models/speed.model');
 
 router.route('/').get((req, res) => {
-    const { page = 1, date = moment().format('YYYY-MM-DD')  } = req.query;
+    const { page = 1, date: dateYYYYMMDD = moment().format('YYYY-MM-DD')  } = req.query;
 
-    // convert the date to utc time
-    const dateUTC = new Date(date);
+    // convert the date string to date
+    const date = new Date(dateYYYYMMDD);
 
     const options = {
         page,
@@ -18,7 +18,7 @@ router.route('/').get((req, res) => {
     };
 
     const query = {
-        timestamp: new RegExp(`^${moment(dateUTC).format('YYYY-MM-DD')}T`), // 2021-01-26T12:12:02.344771Z
+        timestamp: new RegExp(`^${moment(date).format('YYYY-MM-DD')}T`), // 2021-01-26T12:12:02.344771Z
     };
 
     Speed.paginate(query, options)
