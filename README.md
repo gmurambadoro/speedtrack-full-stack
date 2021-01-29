@@ -6,7 +6,7 @@ speed of your internet connection over time.
 It is based on MongoDB, ExpressJs, React and NodeJs and it consists of two applications namely:
 
 - `/backend` - exposes an API that generates SpeedTrack data
-- `frontend` - consumes the backend API to display the data on a browser
+- `/frontend` - consumes the backend API to display the data on a browser
 
 This application is hosted on an Ubuntu server with `apache2`, `nodejs` and `pm2` services installed and running.
 
