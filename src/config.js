@@ -2,7 +2,7 @@
  * The name of the application
  * @type {string}
  */
-export const APP_NAME = 'SpeedTrack - Client';
+export const APP_NAME = 'SpeedTrack &trade; Bandwidth Monitor';
 
 /**
  * The time (in seconds) before new data has to be fetched from the server

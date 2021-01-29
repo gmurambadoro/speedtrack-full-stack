@@ -1,11 +1,12 @@
 import React from "react";
-import Status from "./Status";
+import parse from "html-react-parser";
 import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
 import {Container, Nav, Navbar} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {APP_NAME} from "../config";
 import Dashboard from "./Dashboard";
+import Status from "./Status";
 
 const Layout = (props) => {
     const { speeds = [], date = new Date(), onDateChanged } = props;
@@ -19,7 +20,7 @@ const Layout = (props) => {
         <BrowserRouter>
             <header>
                 <Navbar bg="light" expand="lg">
-                    <Navbar.Brand as={Link} to="/">{APP_NAME}</Navbar.Brand>
+                    <Navbar.Brand as={Link} to="/">{parse(APP_NAME)}</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
