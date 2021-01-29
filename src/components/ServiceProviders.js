@@ -26,12 +26,17 @@ const ServiceProviders = (props) => {
         <Card>
             <Card.Header>Internet Service Provider (ISP)</Card.Header>
             <ListGroup variant="flush">
-                <ListGroup.Item
-                    style={styles.groupItem}
-                    onClick={() => handleChange('all')}
-                >
-                    ALL {isp.toLowerCase() === 'all' ? '*' : ''}
-                </ListGroup.Item>
+
+                {
+                    providers.length === 1 ? null : (
+                        <ListGroup.Item
+                            style={styles.groupItem}
+                            onClick={() => handleChange('all')}
+                        >
+                            ALL {isp.toLowerCase() === 'all' ? '*' : ''}
+                        </ListGroup.Item>
+                    )
+                }
 
                 {providers.map(provider => renderProvider(provider))}
             </ListGroup>
